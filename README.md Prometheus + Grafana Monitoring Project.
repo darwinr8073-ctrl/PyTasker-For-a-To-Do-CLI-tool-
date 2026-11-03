@@ -1,0 +1,193 @@
+# 📊 Linux System Monitoring & Visualization using Prometheus and Grafana
+
+## 📌 Project Overview
+
+This project implements a containerized monitoring solution using **Prometheus, Grafana, and Node Exporter** with Docker Compose.
+
+Prometheus collects system metrics, Node Exporter exposes Linux system-level metrics, and Grafana visualizes the collected data through interactive dashboards.
+
+The project demonstrates practical knowledge of monitoring, observability, Docker containerization, and infrastructure management.
+
+## 🛠️ Technologies Used
+
+- **Docker** – Containerization
+- **Docker Compose** – Multi-container orchestration
+- **Prometheus** – Metrics collection and monitoring
+- **Node Exporter** – Linux system metrics exporter
+- **Grafana** – Data visualization and dashboards
+- **Linux (Ubuntu / WSL)** – Operating environment
+
+## 🏗️ Architecture
+
+```text
+          Linux System (Ubuntu / WSL)
+                     |
+                     v
+              Node Exporter
+                 :9100
+                     |
+                     v
+               Prometheus
+                 :9090
+                     |
+                     v
+                Grafana
+                 :3000
+                     |
+                     v
+          Monitoring Dashboards
+```
+
+## ✨ Key Features
+
+- Real-time Linux system monitoring
+- CPU utilization monitoring
+- Memory and RAM utilization monitoring
+- Disk and filesystem monitoring
+- Network traffic monitoring
+- System uptime and load monitoring
+- Prometheus metrics collection at regular intervals
+- Interactive Grafana dashboards
+- Docker-based deployment using Docker Compose
+
+## 📂 Project Structure
+
+```text
+monitoring/
+│
+├── docker-compose.yml
+│
+├── prometheus.yml
+│
+└── README.md
+```
+
+## 🚀 Deployment Instructions
+
+### Prerequisites
+
+- Ubuntu / Linux environment
+- Docker installed and running
+- Docker Compose installed
+
+### Step 1: Clone the Repository
+
+```bash
+git clone https://github.com/YOUR_USERNAME/monitoring.git
+cd monitoring
+```
+
+### Step 2: Start the Monitoring Stack
+
+```bash
+docker compose up -d
+```
+
+### Step 3: Verify Running Containers
+
+```bash
+docker ps
+```
+
+### Step 4: Access the Services
+
+| Service | URL |
+|---|---|
+| Prometheus | http://localhost:9090 |
+| Grafana | http://localhost:3000 |
+| Node Exporter | http://localhost:9100/metrics |
+
+## ⚙️ Prometheus Configuration
+
+Prometheus is configured to scrape metrics from itself and Node Exporter every 15 seconds.
+
+```yaml
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: prometheus
+    static_configs:
+      - targets: ['prometheus:9090']
+
+  - job_name: node-exporter
+    static_configs:
+      - targets: ['node-exporter:9100']
+```
+
+## 📈 Grafana Configuration
+
+1. Log in to Grafana.
+2. Navigate to **Connections → Data Sources**.
+3. Add Prometheus as the data source.
+4. Configure the URL:
+
+```text
+http://prometheus:9090
+```
+
+5. Click **Save & Test**.
+6. Navigate to **Dashboards → Import**.
+7. Import the community dashboard using ID **1860 (Node Exporter Full)**.
+8. Select the Prometheus data source and click **Import**.
+
+## 🧪 Testing and Validation
+
+Verify monitoring targets in Prometheus:
+
+```text
+http://localhost:9090/targets
+```
+
+Check Node Exporter metrics:
+
+```bash
+curl http://localhost:9100/metrics
+```
+
+Check container status:
+
+```bash
+docker compose ps
+```
+
+## 🛑 Stop the Monitoring Stack
+
+```bash
+docker compose down
+```
+
+To stop the Docker service completely:
+
+```bash
+sudo systemctl stop docker
+```
+
+## ▶️ Restart the Monitoring Stack
+
+```bash
+sudo systemctl start docker
+cd ~/monitoring
+docker compose up -d
+```
+
+## 🎯 Learning Outcomes
+
+- Understanding monitoring and observability fundamentals
+- Hands-on experience with Prometheus metrics and scrape targets
+- Configuring Node Exporter for Linux monitoring
+- Building dashboards using Grafana
+- Deploying and managing multi-container applications using Docker Compose
+- Troubleshooting containerized monitoring services
+
+## 👨‍💻 Author
+
+**Darwin Prem Kumar R**
+
+Aspiring DevOps / Cloud Engineer
+
+GitHub: https://github.com/darwinr8073-ctrl
+
+---
+
+⭐ If you find this project useful, feel free to explore and connect!
